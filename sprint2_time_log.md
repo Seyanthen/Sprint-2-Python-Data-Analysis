@@ -1,8 +1,8 @@
 # CSE 310 - Sprint Time Log
 
-Name:
+Name: Joshua Adams
 
-Sprint #:
+Sprint #: 2
 
 ## Instructions
 
@@ -29,9 +29,15 @@ The expected minimum amount of time each Sprint for each category is as follows:
 |10-05-26|10:15|IM|Sprint 2 Planning|45|
 |10-05-26|11:00|TP - MTG|Sprint 2 Planning Meeting|15|
 |10-05-26|12:45|IM|Development Environment Setup & Python Basics Review|60|
-|          |          |        |                                            |             |
-|          |          |        |                                            |             |
-|          |          |        |                                            |             |
+|10-06-26|5:45|IM|Python Review - Strings|60|
+||||||
+||||||
+||||||
+||||||
+||||||
+||||||
+||||||
+||||||
 
 _Note: Add more rows as needed._
 
