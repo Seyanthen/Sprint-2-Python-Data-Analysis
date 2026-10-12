@@ -29,3 +29,36 @@ print(f"Now x is {x}")
 txt = "The best things in life are free!"
 if "free" in txt:
   print("Yes, 'free' is present.")
+
+# If else format and boolean operators
+a = 200
+b = 33
+if (b > a):
+    print("b is greater than a")
+else:
+    print("b is not greater than a")
+
+
+# Function Formatting
+def my_function():
+    print("Hello from a function")
+    return True
+
+if my_function():
+    print("The function returned", my_function())
+else:
+    print("No!")
+
+#
+# Logical Operations
+#
+"""
+Difference Between is and ==
+is - Checks if both variables point to the same object in memory
+== - Checks if the values of both variables are equal
+"""
+x = [1, 2, 3]
+y = [1, 2, 3]
+
+print("Does X have the same values as Y?", x == y)
+print("Do X and Y point to the same object in memory?", x is y)

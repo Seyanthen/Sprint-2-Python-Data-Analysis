@@ -30,11 +30,11 @@ The expected minimum amount of time each Sprint for each category is as follows:
 |10-05-26|11:00|TP - MTG|Sprint 2 Planning Meeting|15|
 |10-05-26|12:45|IM|Development Environment Setup & Python Basics Review|60|
 |10-06-26|5:45|IM|Python Review - Strings|60|
-||||||
-||||||
-||||||
-||||||
-||||||
+|10-07-26|10:15|TP|In-Class GitHub Project Cleanup & Integration Learning|60|
+|10-08-26|5:35|IM|Python Review - Operators|60|
+|10-09-26|10:23|MTG - TP|Stand up team meeting|6|
+|10-09-26|10:45|TP|Personal Project Updates|10|
+|10-12-26|9:05|IM|Data Set Procuring |60|
 ||||||
 ||||||
 ||||||
