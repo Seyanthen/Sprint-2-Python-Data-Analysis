@@ -24,8 +24,8 @@ The expected minimum amount of time each Sprint for each category is as follows:
 
 ## Time Log
 
-|Date      |Start Time|Category|Description                                 |Total Minutes|
-|----------|----------|:------:|--------------------------------------------|:-----------:|
+|Date      |Start Time|Category|Description                            |Total Minutes|
+|----------|----------|:------:|---------------------------------------|:-----------:|
 |10-05-26|10:15|IM|Sprint 2 Planning|45|
 |10-05-26|11:00|TP - MTG|Sprint 2 Planning Meeting|15|
 |10-05-26|12:45|IM|Development Environment Setup & Python Basics Review|60|
@@ -34,9 +34,9 @@ The expected minimum amount of time each Sprint for each category is as follows:
 |10-08-26|5:35|IM|Python Review - Operators|60|
 |10-09-26|10:23|MTG - TP|Stand up team meeting|6|
 |10-09-26|10:45|TP|Personal Project Updates|10|
-|10-12-26|9:05|IM|Data Set Procuring |60|
-||||||
-||||||
+|10-12-26|9:05|IM|Pandas Tutorial & Data Set Procuring|60|
+|10-12-26|10:15|TP|Backend and Frontend Verification|60|
+|10-14-26|10:15|MTG - TP|Team Review Meeting - Presentation Meeting|60|
 ||||||
 
 _Note: Add more rows as needed._
