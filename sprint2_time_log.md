@@ -37,6 +37,11 @@ The expected minimum amount of time each Sprint for each category is as follows:
 |10-12-26|9:05|IM|Pandas Tutorial & Data Set Procuring|60|
 |10-12-26|10:15|TP|Backend and Frontend Verification|60|
 |10-14-26|10:15|MTG - TP|Team Review Meeting - Presentation Meeting|60|
+|10-14-26|15:50|IM|Dataset Selection and Cleaning|60|
+||||||
+||||||
+||||||
+||||||
 ||||||
 
 _Note: Add more rows as needed._
