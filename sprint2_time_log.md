@@ -38,7 +38,7 @@ The expected minimum amount of time each Sprint for each category is as follows:
 |10-12-26|10:15|TP|Backend and Frontend Verification|60|
 |10-14-26|10:15|MTG - TP|Team Review Meeting - Presentation Meeting|60|
 |10-14-26|15:50|IM|Dataset Selection and Cleaning|60|
-||||||
+|10-15-26|4:10|IM|Filter and Sort Funtionatity|70|
 ||||||
 ||||||
 ||||||

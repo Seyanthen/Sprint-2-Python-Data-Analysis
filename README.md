@@ -50,6 +50,6 @@ I found these websites useful in developing this software:
 
 The following items I plan to fix, improve, and/or add to this project in the future:
 
-* [ ] First thing here
+* [ ] Dynamic Filter and Sort Selections
 * [ ]
 * [ ]

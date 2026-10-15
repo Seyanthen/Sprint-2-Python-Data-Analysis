@@ -9,6 +9,7 @@ Agentic AI assistance was used in this project:
  3. The AI built the graphing code to visualize the analysis results. 
 """
 
+
 """ Step 1: Import the libraries needed for the analysis. """
 # pandas will load, clean, filter, sort, and aggregate the CSV data.
 # matplotlib will create a graph from the analysis results.
@@ -30,6 +31,7 @@ GRAPH_PATH = OUTPUT_DIR / "housing_market_results.png"
 
 # Report Program Status
 print("Program imported libraries and configured file paths successfully.")
+
 
 """ Step 3: Select and load one dataset when the program starts. """
 # Display a numbered menu containing the available dataset choices.
@@ -56,6 +58,7 @@ while True:
 # Use pandas to read only the selected CSV into one DataFrame.
 datSet = pd.read_csv(selected_dataset_path)
 
+
 """ Step 4: Clean and prepare the selected DataFrame. """
 # Remove any non-data notice rows that appear in the CSV files.
 # Drop the first MLS notice row
@@ -72,50 +75,74 @@ datSet = datSet.drop(columns=columns_to_remove, errors='ignore')
 
 # Convert numeric columns such as PRICE, BEDS, BATHS, SQUARE FEET,
 # LOT SIZE, YEAR BUILT, and $/SQUARE FEET to appropriate numeric data types.
-# Assign the converted values back to datSet; conversion alone does not change
-# the original DataFrame. BATHS and $/SQUARE FEET may contain decimal values.
-numeric_columns = [
-    'PRICE', 'BEDS', 'BATHS', 'LOT SIZE', 'YEAR BUILT',
-    'SQUARE FEET', '$/SQUARE FEET'
-]
-for column in numeric_columns:
-    datSet[column] = pd.to_numeric(datSet[column], errors='coerce')
+# !!! Data that contains N/A values or invalid entries will be dropped 
+# from the DataFrame to avoid errors in analysis. !!!
 
-print(datSet.head())
+# Integer values are expected
+integer_columns = ['PRICE', 'BEDS', 'LOT SIZE', 'YEAR BUILT', 'SQUARE FEET']
 
-# Decide how missing values should be handled and document that decision.
-# Invalid or missing numeric values are currently represented as NaN.
-# Before analysis, decide whether to leave, remove, or replace those values.
-# Keep these steps written against the selected DataFrame so the same analysis
-# works regardless of which dataset the user chooses.
+# BATHS and $/SQUARE FEET may contain decimal values.
+decimal_columns = ['BATHS', '$/SQUARE FEET']
 
+for column in integer_columns + decimal_columns: # convert to numeric type
+    datSet[column] = pd.to_numeric(datSet[column], errors='coerce') 
 
+datSet = datSet.dropna(subset=integer_columns).copy()  # Drop rows with NaN in integer columns
+
+for column in integer_columns: # convert numeric format to integer type
+    datSet[column] = datSet[column].astype(int) 
 
 
-""" Step 5: Continue working with the selected dataset. """
-# The dataset chosen in Step 3 is now stored in datSet and has been cleaned.
-# Use datSet for all remaining analysis so the same steps work for either
-# the Boise Area or Idaho Falls Area dataset.
-# Do not combine the datasets because this program analyzes one selection
-# during each run.
+""" Step 5: Define and answer the first question about the selected dataset. """
+# Question: Which homes under a selected price limit have the best price per quantity of BEDs?
+# Apply a FILTER to datSet to keep only rows that meet the chosen conditions:
+# Filter the dataframe by price under $500,000 and 2 bedrooms
+filtered_beds_price = datSet.loc[(datSet["PRICE"] < 500000) & (datSet["BEDS"] >= 2)].copy()
+
+# Print out the filtered and sorted results to the console
+print("\nHomes in the selected area under $500,000 with at least 2 bedrooms:")
+if filtered_beds_price.empty:
+    print("No homes matched the selected conditions.")
+else:
+    # Apply a SORT to the filtered results by price per bedroom (low to high)
+    filtered_beds_price["PRICE_PER_BEDROOM"] = ( 
+        # Calculate price per bedroom
+        filtered_beds_price["PRICE"] / filtered_beds_price["BEDS"]
+    )
+    filtered_beds_price = filtered_beds_price.sort_values(
+        by="PRICE_PER_BEDROOM", 
+        ascending=True
+    )
+
+    # Print summary statistics for the filtered results
+    print(f"Number of matching homes: {len(filtered_beds_price)}")
+    print(f"Average listing price: ${filtered_beds_price['PRICE'].mean():,.0f}")
+    print(f"Average price per bedroom: ${filtered_beds_price['PRICE_PER_BEDROOM'].mean():,.0f}")
+
+# Print top 10 columns of the filtered and sorted results to the console
+print("\nTop 10 homes with the best price per bedroom:")
+print(
+    filtered_beds_price[
+        ["ADDRESS", "CITY", "PRICE", "BEDS", "PRICE_PER_BEDROOM"]
+    ].head(10).to_string(
+        index=False,
+        formatters={
+            "PRICE": "${:,.0f}".format,
+            "BEDS": "{:.0f}".format,
+            "PRICE_PER_BEDROOM": "${:,.0f}".format
+        }
+    )
+)
 
 
-""" Step 6: Define and answer the first question about the selected dataset. """
-# Example question: Which homes under a selected price limit have the largest
-# square footage in the selected area?
-# Apply a FILTER to datSet to keep only rows that meet the chosen conditions.
-# Apply a SORT to the filtered results by square footage or price.
-# Display the most relevant rows and explain what the results show.
-
-
-""" Step 7: Define and answer the second question about the selected dataset. """
-# Example question: What is the average listing price by city or property type
-# within the selected area?
+""" Step 6: Define and answer the second question about the selected dataset. """
+# Question: What is the average listing price by city?
 # Use an AGGREGATION such as groupby() with mean(), median(), or count().
 # Display the grouped results and explain the pattern found.
 
 
-""" Step 8: Create a graph showing an important result. """
+
+""" Step 7: Create a graph showing an important result. """
 # Select a useful result from the analysis of the selected dataset.
 # Choose an appropriate chart type, such as a bar chart of average price by
 # city or a scatter plot comparing square footage and price in that area.
@@ -123,7 +150,8 @@ print(datSet.head())
 # Save the finished graph to GRAPH_PATH and/or display it on screen.
 
 
-""" Step 9: Review the program output. """
+
+""" Step 8: Review the program output. """
 # Confirm that the selected dataset loaded correctly and that the cleaning
 # steps removed the MLS notice row and unnecessary columns.
 # Confirm that both questions are answered and that the filter, sort, and
