@@ -16,6 +16,7 @@ Agentic AI assistance was used in this project:
 # pathlib will create file paths that work across operating systems.
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FuncFormatter
 from pathlib import Path
 
 
@@ -46,10 +47,12 @@ while True:
 
     if datArea == "1":
         selected_dataset_path = DATASET_1_PATH
+        selected_area_name = "Boise Area"
         print("\nData will be loaded from Boise Area dataset.")
         break
     elif datArea == "2":
         selected_dataset_path = DATASET_2_PATH
+        selected_area_name = "Idaho Falls Area"
         print("\nData will be loaded from Idaho Falls Area dataset.")
         break
     else:
@@ -140,21 +143,79 @@ print(
 # Use an AGGREGATION such as groupby() with mean(), median(), or count().
 # Display the grouped results and explain the pattern found.
 
+# Group the cleaned listings by city and calculate the average listing price
+# for each city.  Rows without a city or a valid price cannot contribute to
+# this comparison, so they are excluded before the aggregation.
+average_price_by_city = (
+    datSet.dropna(subset=["CITY", "PRICE"])
+    .groupby("CITY", as_index=False)["PRICE"]
+    .mean()
+    .rename(columns={"PRICE": "AVERAGE_LISTING_PRICE"})
+    .sort_values("AVERAGE_LISTING_PRICE", ascending=False)
+)
+
+# Check for valid results after dropping invalid rows
+print("\nAverage listing price by city:")
+if average_price_by_city.empty:
+    print("No city and price data was available for the aggregation.")
+else:
+    # Print the average listing price
+    print(
+        average_price_by_city.to_string(
+            index=False,
+            formatters={
+                "AVERAGE_LISTING_PRICE": "${:,.0f}".format
+            }
+        )
+    )
+
+    # print the pattern found in the average listing price by city
+    highest_city = average_price_by_city.iloc[0]
+    lowest_city = average_price_by_city.iloc[-1]
+    print(
+        "Pattern found: {} has the highest average listing price at ${:,.0f},\n"
+        "while {} has the lowest at ${:,.0f}.".format(
+            highest_city["CITY"],
+            highest_city["AVERAGE_LISTING_PRICE"],
+            lowest_city["CITY"],
+            lowest_city["AVERAGE_LISTING_PRICE"],
+        )
+    )
+
 
 
 """ Step 7: Create a graph showing an important result. """
-# Select a useful result from the analysis of the selected dataset.
-# Choose an appropriate chart type, such as a bar chart of average price by
-# city or a scatter plot comparing square footage and price in that area.
-# Add a clear title, axis labels, and legend if needed.
-# Save the finished graph to GRAPH_PATH and/or display it on screen.
+# The Step 6 aggregation is a useful result to visualize because a bar chart
+# makes it easy to compare average listing prices across cities.
+if average_price_by_city.empty:
+    print("\nGraph was not created because no city and price data was available.")
+else:
+    # Create the output folder if it does not already exist.  This keeps the
+    # program usable on a fresh checkout of the project.
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
+    figure, axis = plt.subplots(figsize=(10, 6))
+    bars = axis.bar(
+        average_price_by_city["CITY"],
+        average_price_by_city["AVERAGE_LISTING_PRICE"],
+        color="steelblue",
+    )
 
+    # Format the vertical axis as currency so the chart matches the printed
+    # aggregation and is easier to interpret at a glance.
+    axis.yaxis.set_major_formatter(FuncFormatter(lambda value, position: f"${value:,.0f}"))
+    axis.bar_label(
+        bars,
+        labels=[f"${value:,.0f}" for value in bars.datavalues],
+        padding=3,
+    )
+    axis.set_title(f"Average Listing Price by City - {selected_area_name}")
+    axis.set_xlabel("City")
+    axis.set_ylabel("Average Listing Price")
+    axis.tick_params(axis="x", rotation=30)
 
-""" Step 8: Review the program output. """
-# Confirm that the selected dataset loaded correctly and that the cleaning
-# steps removed the MLS notice row and unnecessary columns.
-# Confirm that both questions are answered and that the filter, sort, and
-# aggregation are visible in the analysis.
-# Confirm that the graph represents only the selected area and is readable.
-# Add brief comments or printed labels so another person can follow the results.
+    # tight_layout prevents rotated city names and labels from being clipped.
+    figure.tight_layout()
+    figure.savefig(GRAPH_PATH, dpi=150)
+    plt.close(figure)
+    print(f"\nGraph saved to: {GRAPH_PATH}")
