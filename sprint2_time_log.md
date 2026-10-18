@@ -39,10 +39,9 @@ The expected minimum amount of time each Sprint for each category is as follows:
 |10-14-26|10:15|MTG - TP|Team Review Meeting - Presentation Meeting|60|
 |10-14-26|15:50|IM|Dataset Selection and Cleaning|60|
 |10-15-26|4:10|IM|Filter and Sort Funtionatity|70|
-|10-26-26|10:15|IM|Aggregate functionality|15|
-||||||
-||||||
-||||||
+|10-16-26|10:15|IM|Aggregate functionality|15|
+|10-16-26|11:15|TP|Project README Updates|15|
+|10-16-26|7:00|IM|Project Wrap Up and Recording|60|
 
 _Note: Add more rows as needed._
 
@@ -50,7 +49,7 @@ _Note: Add more rows as needed._
 
 |Categroy                       |Total Time (Hours:Minutes)|
 |-------------------------------|:------------------------:|
-|IM - Individual Module         |                          |
-|TP - Team Project              |                          |
-|MTG - Class Meetings           |                          |
-|**TOTAL**                      |                          |
+|IM - Individual Module         |           08:10          |
+|TP - Team Project              |           03:46          |
+|MTG - Class Meetings           |           01:21          |
+|**TOTAL**                      |        **13:17**         |
